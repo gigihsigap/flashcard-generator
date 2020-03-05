@@ -3,6 +3,9 @@
 const {User} = require('../models')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client("880828445755-hem0eh6nccer93hbfi0rjbkpjhtu5d8f.apps.googleusercontent.com");
+
 
 class Controller {
 
@@ -58,6 +61,36 @@ class Controller {
             }
         })
         .catch(err => {
+            next(err)
+        })
+    }
+
+    static googleLogin(req,res,next){
+        let email = null;
+        client.verifyIdToken({
+            idToken : req.body.token,
+            audience : "880828445755-hem0eh6nccer93hbfi0rjbkpjhtu5d8f.apps.googleusercontent.com"
+        })
+        .then(ticket=>{
+            email = ticket.getPayload().email
+            return User.findOne({where:{email : email }})
+        })
+        .then(data=>{
+            if(data){
+              return data
+            } else{
+                return User.create({
+                    username : email,
+                    email : email,
+                    password : "default"
+                })
+            }
+        })
+        .then(data=>{
+            let token = jwt.sign({id:data.id,email:data.email}, process.env.JWT_SECRET)
+            res.status(200).json({token})
+        })
+        .catch(err=>{
             next(err)
         })
     }

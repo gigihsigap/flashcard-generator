@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Kalam&display=swap&subset=latin-ext" rel="stylesheet">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="880828445755-hem0eh6nccer93hbfi0rjbkpjhtu5d8f.apps.googleusercontent.com">
     <title>Flashcard Generator</title>
 </head>
 <body>
@@ -30,7 +31,8 @@
             <input type="submit" class="submit" id="button-login-submit" value="Submit">
           </form> 
           <input type="submit" class="submit" id="button-register-loginform-submit" value="Register">
-          
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          <a href="#" onclick="signOut();">Sign out</a>
         </div>
     
         <div  id = "registerForm" style="display: none;">
@@ -50,7 +52,7 @@
         <div class="container" id="main-page">
             <h1 class="text-center mx-auto my-5">Your Cards</h1>
             <div class="container flexbox-menu mx-auto my-5">
-                <button class="btn btn-primary" id="logout-button">Log Out</button>
+                <a href="#" onclick="signOut();"><button class="btn btn-primary" id="logout-button">Log Out</button></a>
                 <button class="btn btn-primary">Add New Card</button>
                 <button class="btn btn-primary">Generate Random</button>
             </div>
@@ -86,6 +88,7 @@
             </div>
                 
         </div>
+
     </div>
     
 </body>
