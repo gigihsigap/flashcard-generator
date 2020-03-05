@@ -27,8 +27,14 @@ $("#button-login-landingpage-submit").on("click",function(){
     $("#loginForm").show()
 })
 
-$("#button-login-landingpage-submit").on("click",function(){
+$("#button-register-landingpage-submit").on("click",function(){
     $("#landingPage").hide()
+    $("#registerForm").show()
+})
+
+$("#button-register-loginform-submit").on("click",function(){
+    $("#landingPage").hide()
+    $("#loginForm").hide()
     $("#registerForm").show()
 })
 
@@ -43,3 +49,46 @@ $("#register-form").on("submit",function(event){
 })
 
 //=========== FUNCTION AREA ==========//
+
+function register(){
+    $.ajax({
+        url : "http://localhost:3000/user/register",
+        method : "post",
+        contentType  : "application/json",
+        data : JSON.stringify({
+            username : username.val(),
+            email : email.val(),
+            password : password.val()
+        })
+    })
+    .done(function(data){
+        console.log(data)
+    })
+    .fail(function(jqxhr,status,error){
+        console.log(jqxhr.responseJSON)
+    })
+    .always(function(){
+
+    })
+}
+
+function login(){
+    $.ajax({
+        url: "http://localhost:3000/user/login",
+        method : "post",
+        contentType : "application/json",
+        data : JSON.stringify({
+            email : emailLogin.val(),
+            password : passwordLogin.val()
+        })
+    })
+    .done(function(data){
+        console.log(data)
+    })
+    .fail(function(jqxhr,status,error){
+        console.log(data)
+    })
+    .always(function(data){
+
+    })
+}
