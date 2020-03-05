@@ -4,13 +4,15 @@ const baseURL = 'http://localhost:3000'
 
 $(document).ready(function () {
 
-    if (!localStorage.getItem('token')) {
-        console.log('Not logged in yet!')
-        $("#landingPage").show()
-    } else {
-        console.log('Already logged in!')
-        showMainPage()
-    }
+    // if (!localStorage.getItem('token')) {
+    //     console.log('Not logged in yet!')
+    //     $('#main-page').hide()
+    //     $("#landingPage").show()
+    // } else {
+    //     console.log('Already logged in!')
+    //     showMainPage()
+    // }
+    refresh()
 });
 
 //=========== PARAMETER AREA =========//
@@ -38,6 +40,11 @@ $("#button-register-loginform-submit").on("click",function(){
     $("#registerForm").show()
 })
 
+$("#logout-button").on("click", function(event){
+    localStorage.removeItem('token')
+    refresh()
+})
+
 $("#login-form").on("submit", function(event){
     event.preventDefault()
     login()
@@ -46,9 +53,23 @@ $("#login-form").on("submit", function(event){
 $("#register-form").on("submit",function(event){
     event.preventDefault()
     register()
+    $("#landingPage").hide()
+    $("#registerForm").hide()
+    $("#loginForm").show()
 })
 
 //=========== FUNCTION AREA ==========//
+
+function refresh() {
+    if (!localStorage.getItem('token')) {
+        console.log('Not logged in yet!')
+        $('#main-page').hide()
+        $("#landingPage").show()
+    } else {
+        console.log('Already logged in!')
+        showMainPage()
+    }
+}
 
 function register(){
     $.ajax({
@@ -84,9 +105,11 @@ function login(){
     })
     .done(function(data){
         console.log(data)
+        localStorage.setItem('token', data.token)
+        refresh()
     })
     .fail(function(jqxhr,status,error){
-        console.log(data)
+        console.log(error)
     })
     .always(function(data){
 
@@ -118,3 +141,9 @@ function onSignIn(googleUser) {
       console.log('User signed out.');
     });
   }
+function showMainPage() {
+    $("#loginForm").hide()
+    $("#registerForm").hide()
+    $("#landingPage").hide()
+    $('#main-page').show()
+}
