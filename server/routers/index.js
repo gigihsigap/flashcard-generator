@@ -10,6 +10,7 @@ const User = require('../controllers/userController.js')
 
 router.post('/user/register', User.register)
 router.post('/user/login', User.login)
+router.post('/user/googleLogin',User.googleLogin)
 
 router.get('/cards', authentication, Card.list)
 router.post('/cards', authentication, Card.add)
