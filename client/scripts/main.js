@@ -58,16 +58,43 @@ $("#register-form").on("submit",function(event){
     $("#loginForm").show()
 })
 
+$("#backButton").on("click", function(event){
+    event.preventDefault()
+    refresh()
+})
+
+$("#addCardButton").on("click", function(event){
+    event.preventDefault()
+    $("#main-page").hide()
+    $("#addCardPage").show()
+})
+
+$('#addCardForm').on('submit',(event) => {
+    event.preventDefault();
+    console.log({
+        front: $('#front').val(),
+        subFront: $('#subFront').val(),
+        synFront: $('#synFront').val(),
+        back: $('#back').val(),
+        subBack: $('#subBack').val(),
+        synBack: $('#synBack').val(),
+    })
+    addNewCard()
+    refresh()
+})
+
 //=========== FUNCTION AREA ==========//
 
 function refresh() {
     if (!localStorage.getItem('token')) {
         console.log('Not logged in yet!')
         $('#main-page').hide()
+        $("#addCardPage").hide()
         $("#landingPage").show()
     } else {
         console.log('Already logged in!')
         showMainPage()
+        getAllCards();
     }
 }
 
@@ -124,7 +151,8 @@ function onSignIn(googleUser) {
         data : { token: id_token }
     })
     .done(function(data){
-        localStorage.setItem('token',data)
+        localStorage.setItem('token',data.token)
+        refresh()
     })
     .fail(function(error){
         console.log('token fail :',error)
@@ -144,6 +172,7 @@ function onSignIn(googleUser) {
 function showMainPage() {
     $("#loginForm").hide()
     $("#registerForm").hide()
+    $("#addCardPage").hide()
     $("#landingPage").hide()
     $('#main-page').show()
 }

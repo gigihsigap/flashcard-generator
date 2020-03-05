@@ -2,18 +2,22 @@
 
 // const baseURL = 'http://localhost:3000'
 
-function addNewCard(event) {
-    event.preventDefault();
+function addNewCard() {
     $.ajax({
         method: 'POST',
         url: baseURL + '/cards',
         headers: { token: localStorage.getItem('token') },
         data: {
-            title: $('#titleAdd').val()
+            front: $('#front').val(),
+            subFront: $('#subFront').val(),
+            synFront: [$('#synFront').val()], //ARRAY
+            back: $('#back').val(),
+            subBack: $('#subBack').val(),
+            synBack: [$('#synBack').val()], //ARRAY
         },
         success: () => {
+            console.log('successfully added new card')
             $('#addCardForm')[0].reset();
-            getAllCards();
         },
         error: (err) => {
             console.log(err.responseText);
@@ -29,31 +33,18 @@ function getAllCards() {
         success: (data) => {
             $('#cardList').empty();
             data.sort((a,b)=>{return b.id - a.id})
-            // for (let i = data.length-1; i >= 0 ; i--) {
                 data.forEach(d => {
                 $('#cardList').append(`
-                <tr>
-                    <td><input type="text" id="titleUpdate-${d.id}" value="${d.title}" readonly></td>
-                    <td><textarea id="descriptionUpdate-${d.id}" cols="30" rows="5">${d.description}</textarea></td>
-                    <td><select id="statusUpdate-${d.id}">
-                            <option value="" hidden></option>
-                            <option value="Not Done Yet" ${d.status === 'Not Done Yet' ? 'selected' : '' }>Not Done Yet</option>
-                            <option value="In Progress" ${d.status === 'In Progress' ? 'selected' : '' }>In Progress</option>
-                            <option value="Finished" ${d.status === 'Finished' ? 'selected' : '' }>Finished</option>
-                            <option value="Failed" ${d.status === 'Failed' ? 'selected' : '' }>Failed</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="date" min="2019-01-01" max="2019-12-31" id="due_dateUpdate-${d.id}" value="${d.due_date.substring(0,10)}" readonly>
-                    </td>
-                    <td>
-                        <button onclick="updateCard(${d.id})">Update</button>
-                        <button onclick="deleteCard(${d.id})">Delete</button>
-                    </td>
-                </tr>
+                <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title text-center">${d.front}</h5>
+                <h6 class="card-subtitle text-center mb-2 text-muted">${d.back}</h6>
+                <a href="#" class="card-link">Edit</a>
+                <a href="#" class="card-link">Delete</a>
+            </div>
+            </div>
                 `);
             });
-            // }
         },
         error: (err) => {
             console.log(err.responseText);
@@ -67,13 +58,13 @@ function updateCard(cardId) {
         url: baseURL + '/cards/' + cardId,
         headers: { token: localStorage.getItem('token') },
         data: {
-            title: $(`#titleUpdate-${cardId}`).val(),
-            description: $(`#descriptionUpdate-${cardId}`).val(),
-            status: $(`#statusUpdate-${cardId}`).val(),
-            due_date: $(`#due_dateUpdate-${cardId}`).val()
+            // title: $(`#titleUpdate-${cardId}`).val(),
+            // description: $(`#descriptionUpdate-${cardId}`).val(),
+            // status: $(`#statusUpdate-${cardId}`).val(),
+            // due_date: $(`#due_dateUpdate-${cardId}`).val()
         },
         success: () => {
-            getAllCards();
+            refresh()
         },
         error: (err) => {
             console.log(err.responseText);
@@ -87,10 +78,30 @@ function deleteCard(cardId) {
         url: baseURL + '/cards/' + cardId,
         headers: { token: localStorage.getItem('token') },
         success: () => {
-            getAllCards();
+            refresh()
         },
         error: (err) => {
             console.log(err.responseText);
         }
     });
 }
+
+// function shuffle(array) {
+//     var currentIndex = array.length, temporaryValue, randomIndex;
+  
+//     // While there remain elements to shuffle...
+//     while (0 !== currentIndex) {
+  
+//       // Pick a remaining element...
+//       randomIndex = Math.floor(Math.random() * currentIndex);
+//       currentIndex -= 1;
+  
+//       // And swap it with the current element.
+//       temporaryValue = array[currentIndex];
+//       array[currentIndex] = array[randomIndex];
+//       array[randomIndex] = temporaryValue;
+//     }
+  
+//     return array;
+//   }
+  
