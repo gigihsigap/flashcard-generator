@@ -1,4 +1,13 @@
-.flexbox {
+.flexbox-menu {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+
+.flexbox-cards {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
