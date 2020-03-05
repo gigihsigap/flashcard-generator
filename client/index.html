@@ -4,9 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Kalam&display=swap&subset=latin-ext" rel="stylesheet">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <title>Flashcard Generator</title>
 </head>
 <body>
+    <div class = "landingPage" id ="landingPage" style="display: none;">
+        <form id="landingPage" action="" method="POST">
+           
+            <h2> Welcome To Flash Card Generator ! </h2>
+            <input type="submit" class="submit" id="button-login-submit" value="Login">
+            <input type="submit" class="submit" id="button-login-submit" value="Register">
+
+        </div>
+
+    <div class = "login-form" id ="login-form" style="display: none;">
+        <form id="login-form" action="" method="POST">
+            <h3> Login </h3>
+            <label for="fname">Email:</label><br>
+            <input type="text" id="emailLogin" name="emailLogin" value="" required><br>
+            <label for="lname">Password:</label><br>
+            <input type="password" id="passwordLogin" name="passwordLogin" value="" required><br><br>
+            <input type="submit" class="submit" id="button-login-submit" value="Submit">
+          </form> 
+          <br>
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          <br>
+          <a href="#" onclick="signOut();">Sign out</a>
+        </div>
+    
+        <div  id = "register-form" style="display: none;">
+            <h3> Register </h3>
+            <form id="register-form" action="" method="POST">
+                <label for="fname">First Name:</label><br>
+                <input type="text" id="firstName" name="firstName" value=""><br>
+                <label for="fname">Last Name:</label><br>
+                <input type="text" id="lastName" name="lastName" value=""><br>
+                <label for="fname">Email:</label><br>
+                <input type="text" id="email" name="email" value=""><br>
+                <label for="lname">Password:</label><br>
+                <input type="password" id="password" name="password" value=""><br><br>
+                <input type="submit" class="submit" id="button-register-submit" value="Submit">
+            </form> 
+        </div>
     
 </body>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
