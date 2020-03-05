@@ -3,6 +3,8 @@
 const {User} = require('../models')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const {OAuth2Client} = require('google-auth-library');
+
 
 class Controller {
 
@@ -60,6 +62,10 @@ class Controller {
         .catch(err => {
             next(err)
         })
+    }
+
+    static googleLogin(req,res,next){
+
     }
 }
 
