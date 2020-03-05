@@ -1,37 +1,19 @@
 "use strict"
 
-const baseURL = 'http://localhost:3000'
+// const baseURL = 'http://localhost:3000'
 
-$(document).ready(function () {
-
-    if (!localStorage.getItem('token')) {
-        console.log('Not logged in yet!')
-        $("#navbar-logged-in").hide()
-        $("#navbar-not-logged-in").show()
-
-    } else {
-        console.log('Already logged in!')
-        $("#navbar-not-logged-in").hide()
-        showMainPage()
-    }
-});
-
-
-function addNewTodo(event) {
+function addNewCard(event) {
     event.preventDefault();
     $.ajax({
         method: 'POST',
-        url: BASE_URL + '/todos',
+        url: baseURL + '/cards',
         headers: { token: localStorage.getItem('token') },
         data: {
-            title: $('#titleAdd').val(),
-            description: $('#descriptionAdd').val(),
-            status: $('#statusAdd').val(),
-            due_date: $('#due_dateAdd').val()
+            title: $('#titleAdd').val()
         },
         success: () => {
-            $('#addTodoForm')[0].reset();
-            getAllTodos();
+            $('#addCardForm')[0].reset();
+            getAllCards();
         },
         error: (err) => {
             console.log(err.responseText);
@@ -39,17 +21,17 @@ function addNewTodo(event) {
     });
 }
 
-function getAllTodos() {
+function getAllCards() {
     $.ajax({
         method: 'GET',
-        url: BASE_URL + '/todos',
+        url: baseURL + '/cards',
         headers: { token: localStorage.getItem('token') },
         success: (data) => {
-            $('#todoList').empty();
+            $('#cardList').empty();
             data.sort((a,b)=>{return b.id - a.id})
             // for (let i = data.length-1; i >= 0 ; i--) {
                 data.forEach(d => {
-                $('#todoList').append(`
+                $('#cardList').append(`
                 <tr>
                     <td><input type="text" id="titleUpdate-${d.id}" value="${d.title}" readonly></td>
                     <td><textarea id="descriptionUpdate-${d.id}" cols="30" rows="5">${d.description}</textarea></td>
@@ -65,8 +47,8 @@ function getAllTodos() {
                         <input type="date" min="2019-01-01" max="2019-12-31" id="due_dateUpdate-${d.id}" value="${d.due_date.substring(0,10)}" readonly>
                     </td>
                     <td>
-                        <button onclick="updateTodo(${d.id})">Update</button>
-                        <button onclick="deleteTodo(${d.id})">Delete</button>
+                        <button onclick="updateCard(${d.id})">Update</button>
+                        <button onclick="deleteCard(${d.id})">Delete</button>
                     </td>
                 </tr>
                 `);
@@ -79,19 +61,19 @@ function getAllTodos() {
     });
 }
 
-function updateTodo(todoId) {
+function updateCard(cardId) {
     $.ajax({
         method: 'PUT',
-        url: BASE_URL + '/todos/' + todoId,
+        url: baseURL + '/cards/' + cardId,
         headers: { token: localStorage.getItem('token') },
         data: {
-            title: $(`#titleUpdate-${todoId}`).val(),
-            description: $(`#descriptionUpdate-${todoId}`).val(),
-            status: $(`#statusUpdate-${todoId}`).val(),
-            due_date: $(`#due_dateUpdate-${todoId}`).val()
+            title: $(`#titleUpdate-${cardId}`).val(),
+            description: $(`#descriptionUpdate-${cardId}`).val(),
+            status: $(`#statusUpdate-${cardId}`).val(),
+            due_date: $(`#due_dateUpdate-${cardId}`).val()
         },
         success: () => {
-            getAllTodos();
+            getAllCards();
         },
         error: (err) => {
             console.log(err.responseText);
@@ -99,13 +81,13 @@ function updateTodo(todoId) {
     });
 }
 
-function deleteTodo(todoId) {
+function deleteCard(cardId) {
     $.ajax({
         method: 'DELETE',
-        url: BASE_URL + '/todos/' + todoId,
+        url: baseURL + '/cards/' + cardId,
         headers: { token: localStorage.getItem('token') },
         success: () => {
-            getAllTodos();
+            getAllCards();
         },
         error: (err) => {
             console.log(err.responseText);
