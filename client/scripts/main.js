@@ -6,12 +6,19 @@ $(document).ready(function () {
 
     if (!localStorage.getItem('token')) {
         console.log('Not logged in yet!')
-        $("#navbar-logged-in").hide()
-        $("#navbar-not-logged-in").show()
-
+        $("#landingPage").show()
     } else {
         console.log('Already logged in!')
-        $("#navbar-not-logged-in").hide()
         showMainPage()
     }
 });
+
+//=========== PARAMETER AREA =========//
+let username = $("#username")
+let email = $("#email")
+let password = $("#password")
+let emailLogin = $("#emailLogin")
+let passwordLogin = $("#passwordLogin")
+
+//=========== BUTTON AREA ======//
+$("#login-form")
