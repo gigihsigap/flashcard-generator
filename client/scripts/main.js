@@ -83,6 +83,26 @@ $('#addCardForm').on('submit',(event) => {
     refresh()
 })
 
+$(`#editCardButton`).on("click", function(event){
+    event.preventDefault()
+    $("#main-page").hide()
+    $("#editCardPage").show()
+})
+
+$('#editCardForm').on('submit',(event) => {
+    event.preventDefault();
+    console.log({
+        front: $('#front').val(),
+        subFront: $('#subFront').val(),
+        synFront: $('#synFront').val(),
+        back: $('#back').val(),
+        subBack: $('#subBack').val(),
+        synBack: $('#synBack').val(),
+    })
+    editCard()
+    refresh()
+})
+
 //=========== FUNCTION AREA ==========//
 
 function refresh() {

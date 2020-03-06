@@ -39,7 +39,7 @@ function getAllCards() {
                 <div class="card-body">
                 <h5 class="card-title text-center">${d.front}</h5>
                 <h6 class="card-subtitle text-center mb-2 text-muted">${d.back}</h6>
-                <a href="#" class="card-link">Edit</a>
+                <a href="#" class="card-link" onclick="editCardForm(${d.id})">Edit</a>
                 <a href="#" class="card-link">Delete</a>
             </div>
             </div>
@@ -52,16 +52,36 @@ function getAllCards() {
     });
 }
 
-function updateCard(cardId) {
+function editCardForm(cardId) {
+    event.preventDefault()
+    $("#main-page").hide()
+    $("#editCardPage").show()
+    $.ajax({
+        method: 'PUT',
+        url: baseURL + '/cards/' + cardId,
+        headers: { token: localStorage.getItem('token') },
+        success: (data) => {
+            console.log(data)
+            $("#edit-front").val(data.front)
+            $("#edit-subFront").val(data.subFront)
+            $("#edit-synFront").val(data.synFront)
+            $("#edit-back").val(data.back)
+            $("#edit-subBack").val(data.subBack)
+            $("#edit-synBack").val(data.synBack)
+        },
+        error: (err) => {
+            console.log(err.responseText);
+        }        
+    })
+}
+
+function editCard(cardId) {
     $.ajax({
         method: 'PUT',
         url: baseURL + '/cards/' + cardId,
         headers: { token: localStorage.getItem('token') },
         data: {
-            // title: $(`#titleUpdate-${cardId}`).val(),
-            // description: $(`#descriptionUpdate-${cardId}`).val(),
-            // status: $(`#statusUpdate-${cardId}`).val(),
-            // due_date: $(`#due_dateUpdate-${cardId}`).val()
+            // .val()
         },
         success: () => {
             refresh()
