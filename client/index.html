@@ -1,40 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Kalam&display=swap&subset=latin-ext" rel="stylesheet">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="880828445755-hem0eh6nccer93hbfi0rjbkpjhtu5d8f.apps.googleusercontent.com">
+    <meta name="google-signin-client_id"
+        content="880828445755-hem0eh6nccer93hbfi0rjbkpjhtu5d8f.apps.googleusercontent.com">
     <title>Flashcard Generator</title>
 </head>
+
 <body>
-    <div class = "landingPage" id ="landingPage" style="display: none;">
-           
-            <h2> Welcome To Flash Card Generator ! </h2>
-            <input type="submit" class="submit" id="button-login-landingpage-submit" value="Login">
-            <input type="submit" class="submit" id="button-register-landingpage-submit" value="Register">
+
+    <div class="pageContainer">
+        <div class="landingPage" id="landingPage" style="display:none;">
+
+            <h2> Welcome To Flash Card Generator!</h2>
+            <input type="submit" class="btn btn-dark" id="button-login-landingpage-submit" value="Login">
+            <input type="submit" class="btn btn-dark" id="button-register-landingpage-submit" value="Register">
 
         </div>
 
-    <div class = "loginForm" id ="loginForm" style="display: none;">
-        <form id="login-form" action="" method="POST">
-            <h3> Login </h3>
-            <label for="fname">Email:</label><br>
-            <input type="text" id="emailLogin" name="emailLogin" value="" required><br>
-            <label for="lname">Password:</label><br>
-            <input type="password" id="passwordLogin" name="passwordLogin" value="" required><br><br>
-            <input type="submit" class="submit" id="button-login-submit" value="Submit">
-          </form> 
-          <input type="submit" class="submit" id="button-register-loginform-submit" value="Register">
-          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div class="loginForm" id="loginForm" style="display:none;">
+            <form id="login-form" action="" method="POST">
+                <h3> Login </h3>
+                <label for="fname">Email:</label><br>
+                <input type="text" id="emailLogin" name="emailLogin" value="" required><br>
+                <label for="lname">Password:</label><br>
+                <input type="password" id="passwordLogin" name="passwordLogin" value="" required><br><br>
+                <input type="submit" class="btn btn-dark" id="button-login-submit" value="Submit">
+            </form>
+            <input type="submit" class="btn btn-dark" id="button-register-loginform-submit" value="Register">
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </div>
-    
-        <div  id = "registerForm" style="display: none;">
+
+        <div id="registerForm" style="display: none;">
             <h3> Register </h3>
             <form id="register-form" action="" method="POST">
                 <label for="fname">Username:</label><br>
@@ -43,53 +49,90 @@
                 <input type="text" id="email" name="email" value=""><br>
                 <label for="lname">Password:</label><br>
                 <input type="password" id="password" name="password" value=""><br><br>
-                <input type="submit" class="submit" id="button-register-submit" value="Submit">
-            </form> 
-                
+                <input type="submit" class="btn btn-dark" id="button-register-submit" value="Submit">
+            </form>
+
         </div>
 
-        <div class="container" id="main-page">
+        <div class="container" id="main-page" style="display:none;">
             <h1 class="text-center mx-auto my-5">Your Cards</h1>
             <div class="container flexbox-menu mx-auto my-5">
-                <a href="#" onclick="signOut();"><button class="btn btn-primary" id="logout-button">Log Out</button></a>
-                <button class="btn btn-primary" id="addCardButton">Add New Card</button>
-                <button class="btn btn-primary">Generate Random</button>
+                <button id="addCardButton" class="btn btn-dark">Add New Card</button>
+                <button id="generate-card-button" class="btn btn-dark">Generate Random Card</button>
+                <button id="open-translate-button" class="btn btn-dark">Online Translator</button>
+                <button id="logout-button" class="btn btn-dark" onclick="signOut();">Log Out</button>
             </div>
 
             <div class="container flexbox-cards" id="cardList">
 
-            <!-- Card List Here -->
-                
+                <!-- Card List Here -->
+
+            </div>
+
+        </div>
+
+        <div class="container" id="addCardPage" style="display:none;">
+            <h1 class="text-center mx-auto my-5">Add New Card</h1>
+            <div class="container flexbox-menu mx-auto my-5">
+                <button id="generate-card-button" class="btn btn-dark">Generate Random Card</button>
+            </div>
+
+            <div class="container flexbox-cards">
+
+                <form id="addCardForm" class="text-center">
+                    <input type="text" id="front" placeholder="English Word" value=""><br>
+                    <input type="text" id="subFront" placeholder="Definition" value=""><br>
+                    <input type="text" id="synFront" placeholder="Synonyms" value=""><br><br>
+                    <input type="text" id="back" placeholder="Kata Bahasa Indonesia" value=""><br>
+                    <input type="text" id="subBack" placeholder="Definisi" value=""><br>
+                    <input type="text" id="synBack" placeholder="Sinonim" value=""><br><br>
+                    <input type="submit" class="submit" id="addCardSubmit" value="Submit">
+                    <button id="backButton" class="btn btn-dark">Back</button>
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="container" id="translatePage" style="display:none;">
+            <form>
+                <input id="translate-input-form" class="form-control form-control-lg" type="text"
+                    placeholder="Enter text">
+                <input id="translate-result-form" class="form-control form-control-lg" type="text"
+                    placeholder="Translation" readonly>
+                <button id="translate-button" class="btn btn-dark">Translate</button>
+                <button id="backButton" class="btn btn-dark">Back</button>
+            </form>
+        </div>
+
+        <div class="container flexbox-cards" id="randomCardPage" style="display:none;">
+            <h1 class="text-center mx-auto my-5">Accept this randomly generated card?</h1>
+
+            <div class="container flexbox-menu mx-auto my-5">
+                <button id="generate-card-retry" class="btn btn-dark">Generate New Card</button>
+            </div>
+
+            <form id="randomCardForm" class="text-center">
+                <input type="text" id="frontRand" placeholder="English Word" value=""><br>
+                <input type="text" id="subFrontRand" placeholder="Definition" value=""><br>
+                <input type="text" id="synFrontRand" placeholder="Synonyms" value=""><br><br>
+                <input type="text" id="backRand" placeholder="Kata Bahasa Indonesia" value=""><br>
+                <input type="text" id="subBackRand" placeholder="Definisi" value=""><br>
+                <input type="text" id="synBackRand" placeholder="Sinonim" value=""><br><br>
+                <input type="submit" class="btn btn-dark" id="addCardSubmit" value="Submit">
+                <button id="backButton" class="btn btn-dark">Back</button>
+            </form>
+
         </div>
 
     </div>
 
-    <div class="container" id="addCardPage">
-        <h1 class="text-center mx-auto my-5">Add New Card</h1>
-        <div class="container flexbox-menu mx-auto my-5">
-            <button class="btn btn-primary">Generate Random</button>
-        </div>
 
-        <div class="container flexbox-cards">
-
-        <form id="addCardForm" class="text-center">
-            <input type="text" id="front" placeholder="English Word" value=""><br>
-            <input type="text" id="subFront" placeholder="Definition" value=""><br>
-            <input type="text" id="synFront" placeholder="Synonyms" value=""><br><br>
-            <input type="text" id="back" placeholder="Kata Bahasa Indonesia" value=""><br>
-            <input type="text" id="subBack" placeholder="Definisi" value=""><br>
-            <input type="text" id="synBack" placeholder="Sinonim" value=""><br><br>
-            <input type="submit" class="submit" id="addCardSubmit" value="Submit">
-            <button class="btn" id="backButton">Back</button>
-        </form>
-            
-        </div>
-
-</div>
-    
 </body>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="./scripts/main.js"></script>
-    <script src="./scripts/translator.js"></script>
-    <script src="./scripts/card.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="./scripts/main.js"></script>
+<script src="./scripts/translator.js"></script>
+<script src="./scripts/card.js"></script>
+<script src="./scripts/generateCard.js"></script>
+
 </html>

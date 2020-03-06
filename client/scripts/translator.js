@@ -1,5 +1,10 @@
 "use strict"
 
+$('#open-translate-button').on('click', function() {
+    $('#main-page').hide()
+    $('#translatePage').show()
+})
+
 $('#translate-button').on('click', function() {
     translate()
 })
