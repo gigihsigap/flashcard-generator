@@ -57,7 +57,7 @@ function editCardForm(cardId) {
     $("#main-page").hide()
     $("#editCardPage").show()
     $.ajax({
-        method: 'PUT',
+        method: 'GET',
         url: baseURL + '/cards/' + cardId,
         headers: { token: localStorage.getItem('token') },
         success: (data) => {
