@@ -1,8 +1,7 @@
 "use strict"
 
 $('#generate-card-button').on('click', function () {
-    let recursiveCount = 0
-    getRandomCard(recursiveCount)
+    getRandomCard(0)
 })
 
 function getRandomCard(recursiveCount) {
