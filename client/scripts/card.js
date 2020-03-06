@@ -35,6 +35,7 @@ function getAllCards() {
             data.sort((a,b)=>{return b.id - a.id})
                 data.forEach(d => {
                 $('#cardList').append(`
+                <div class="card" id="cardList" onclick="getOneCard(${d.id})" style="width: 18rem;">
                 <div class="card" style="width: 18rem;">
                 <div class="card-body">
                 <h5 class="card-title text-center">${d.front}</h5>
@@ -50,6 +51,33 @@ function getAllCards() {
             console.log(err.responseText);
         }
     });
+}
+
+function getOneCard(cardItem){
+    $.ajax({
+        method : 'GET',
+        url : baseURL + '/cards/'+cardItem,
+        headers : { token: localStorage.getItem('token') },
+        success: (data) =>{
+            $('#cardId').append(`
+                <div class="card" id="cardList" onclick="getOneCard(${data.id})" style="width: 18rem;">
+                <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title text-center">${data.front}</h5>
+                <h6 class="card-subtitle text-center mb-2 text-muted">${data.subFront}</h6>
+
+            </div>
+            </div>
+            `)
+            $('#main-page').hide()
+            $("#cardId").show()
+        },
+        error:(err)=>{
+            console.log(data)
+            console.log(err.responseText)
+        }
+
+    })
 }
 
 function updateCard(cardId) {

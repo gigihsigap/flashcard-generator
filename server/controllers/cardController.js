@@ -28,6 +28,21 @@ class Controller {
         .catch(err => next(err))
     }
 
+    static getOne(req,res,next){
+        let id = req.params.id
+        Card.findOne({where:{id:id}})
+        .then(result=>{
+            if(result){
+                res.status(200).json(result)
+            } else{
+                res.status(404).json('Error 404: Not found')
+            }
+        })
+        .catch(err=>{
+            next(err)
+        })
+    }
+
     static edit(req, res, next) {
         console.log('Masuk Edit')
         let id = req.params.id
