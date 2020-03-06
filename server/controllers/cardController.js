@@ -56,21 +56,20 @@ class Controller {
             synBack: req.body.synBack,
             UserId: req.userData.id
         }
+        console.log(obj, option)
 
         Card.update(obj, option)
         .then(success => {
-            if (success[0]) {
+            console.log(success)
+            if (success == 1) {
                 res.status(200).json(obj)
             } else {
                 res.status(404).json('Error 404: Not found')
             }    
         })
         .catch(err => {
-            if (err) {
-                res.status(400).json(err)
-            } else {
-                res.status(500)
-            }
+            res.status(500).json(err)
+
         })
     }
 

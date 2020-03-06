@@ -11,12 +11,14 @@ $('#generate-card-retry').on('click', function () {
 })
 
 function getRandomCard(recursiveCount) {
+    console.log(recursiveCount)
     // Get a random English word //
     $.ajax({
         type: 'GET',
         url: `https://random-word-api.herokuapp.com/word?number=1`
     })
     .done(function (result) {
+        console.log(result)
         // Translates the word //
         let randomWord = result[0]
         $.ajax({
@@ -24,6 +26,7 @@ function getRandomCard(recursiveCount) {
             url: `https://api.mymemory.translated.net/get?q=${randomWord}&langpair=en|ind`,
         })
         .done(function(text) {
+            console.log(text)
             // Recursive if the word cannot be translated (max 3 times) //
             let translation = text.responseData.translatedText.toLowerCase()
             // console.log(`The word ${result} can be translated into ${translation}`) 
@@ -44,6 +47,7 @@ function getRandomCard(recursiveCount) {
                     }
                 })
                 .done(function(output) {
+                    console.log(output)
                     // Write word definition //
                     if (output.definitions.length >= 1) {
                         definition = output.definitions[0].definition
@@ -55,6 +59,7 @@ function getRandomCard(recursiveCount) {
                 })
                 .fail(function() {
                     // No definition obtained //
+                console.log('FAIL 3')
                 })
                 .always(function() {
                     // Writes the result //
@@ -68,12 +73,14 @@ function getRandomCard(recursiveCount) {
         })
         .fail(function() {
             // Translation failed //
+        console.log('FAIL 2')
         })
         .always(function() {            
         })
     })
     .fail(function () {
         // Failed getting a random word //
+        console.log('FAIL 1')
     })
     .always(function () {
     })
@@ -101,6 +108,7 @@ function addRandomCard() {
         success: () => {
             console.log('successfully added new card')
             $('#randomCardForm')[0].reset();
+            showMainPage()
         },
         error: (err) => {
             console.log(err.responseText);
