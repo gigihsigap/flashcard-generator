@@ -17,6 +17,7 @@ router.post('/cards', authentication, Card.add)
 // router.put('/cards/:id', authentication, authorization, Card.edit)
 // router.delete('/cards/:id', authentication, authorization, Card.delete)
 
+router.get('/cards/:id', authentication, authorization, Card.getOne)
 router.put('/cards/:id', authentication, authorization, Card.edit)
 router.delete('/cards/:id', authentication, authorization, Card.delete)
 

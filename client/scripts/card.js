@@ -35,11 +35,12 @@ function getAllCards() {
             data.sort((a,b)=>{return b.id - a.id})
                 data.forEach(d => {
                 $('#cardList').append(`
+                <div class="card" id="cardList" onclick="getOneCard(${d.id})" style="width: 18rem;">
                 <div class="card" style="width: 18rem;">
                 <div class="card-body">
                 <h5 class="card-title text-center">${d.front}</h5>
                 <h6 class="card-subtitle text-center mb-2 text-muted">${d.back}</h6>
-                <a href="#" class="card-link" onclick="editCardForm(${d.id})">Edit</a>
+                <a href="#" class="card-link" onclick="getOneCard(${d.id})">Edit</a>
                 <a href="#" class="card-link">Delete</a>
             </div>
             </div>
@@ -52,30 +53,34 @@ function getAllCards() {
     });
 }
 
-function editCardForm(cardId) {
-    event.preventDefault()
-    $("#main-page").hide()
-    $("#editCardPage").show()
+function getOneCard(cardItem){
     $.ajax({
-        method: 'GET',
-        url: baseURL + '/cards/' + cardId,
-        headers: { token: localStorage.getItem('token') },
-        success: (data) => {
-            console.log(data)
-            $("#edit-front").val(data.front)
-            $("#edit-subFront").val(data.subFront)
-            $("#edit-synFront").val(data.synFront)
-            $("#edit-back").val(data.back)
-            $("#edit-subBack").val(data.subBack)
-            $("#edit-synBack").val(data.synBack)
+        method : 'GET',
+        url : baseURL + '/cards/'+cardItem,
+        headers : { token: localStorage.getItem('token') },
+        success: (data) =>{
+            $('#cardId').append(`
+                <div class="card" id="cardList" onclick="getOneCard(${data.id})" style="width: 18rem;">
+                <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title text-center">${data.front}</h5>
+                <h6 class="card-subtitle text-center mb-2 text-muted">${data.subFront}</h6>
+
+            </div>
+            </div>
+            `)
+            $('#main-page').hide()
+            $("#cardId").show()
         },
-        error: (err) => {
-            console.log(err.responseText);
-        }        
+        error:(err)=>{
+            console.log(data)
+            console.log(err.responseText)
+        }
+
     })
 }
 
-function editCard(cardId) {
+function updateCard(cardId) {
     $.ajax({
         method: 'PUT',
         url: baseURL + '/cards/' + cardId,

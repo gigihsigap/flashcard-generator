@@ -58,7 +58,7 @@ $("#register-form").on("submit",function(event){
     $("#loginForm").show()
 })
 
-$("#backButton").on("click", function(event){
+$('.pageContainer').on("click", "#backButton", function(event){
     event.preventDefault()
     refresh()
 })
@@ -69,7 +69,7 @@ $("#addCardButton").on("click", function(event){
     $("#addCardPage").show()
 })
 
-$('#addCardForm').on('submit',(event) => {
+$('#addCardForm').on('submit', function(event) {
     event.preventDefault();
     console.log({
         front: $('#front').val(),
@@ -113,8 +113,8 @@ function refresh() {
         $("#landingPage").show()
     } else {
         console.log('Already logged in!')
+        getAllCards()
         showMainPage()
-        getAllCards();
     }
 }
 
@@ -194,5 +194,7 @@ function showMainPage() {
     $("#registerForm").hide()
     $("#addCardPage").hide()
     $("#landingPage").hide()
+    $('#translatePage').hide()
+    $('#randomCardPage').hide()
     $('#main-page').show()
 }
