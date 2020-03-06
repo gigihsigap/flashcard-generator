@@ -1,6 +1,12 @@
 "use strict"
 
-$('#generate-card-button').on('click', function () {
+$('.pageContainer').on('click', '#generate-card-button', function () {
+    console.log('MASUK RANDOM')
+    $('#main-page').hide()
+    getRandomCard(0)
+})
+
+$('#generate-card-retry').on('click', function () {
     getRandomCard(0)
 })
 
@@ -39,19 +45,24 @@ function getRandomCard(recursiveCount) {
                 })
                 .done(function(output) {
                     // Write word definition //
-                    if (output.definitions.length >= 1) definition = output.definitions[0].definition      
+                    if (output.definitions.length >= 1) {
+                        definition = output.definitions[0].definition
+                    } else if (typeof definition === "string") {
+                        definition = ''
+                    } else {
+                        definition = ''
+                    }
                 })
                 .fail(function() {
                     // No definition obtained //
                 })
                 .always(function() {
                     // Writes the result //
-                    $('#suggested-card').empty()
-                    $('#suggested-card').append(`
-                    <p>${randomWord}</p>
-                    <p>${translation}</p>
-                    <p>${definition ? definition : ''}</p>
-                    `)
+                    $('#frontRand').val(`${randomWord}`)
+                    $('#subFrontRand').val(`${definition}`)
+                    $('#backRand').val(`${translation}`)
+                    $('#randomCardPage').show()
+
                 })
             }
         })
@@ -68,6 +79,31 @@ function getRandomCard(recursiveCount) {
     })
 }
 
-$('#accept-suggestion-button').on('click', function() {
-    $('#form').serializeArray()
+$('#randomCardForm').on('submit', function(event) {
+    event.preventDefault();
+    addRandomCard()
+    refresh()
 })
+
+function addRandomCard() {
+    $.ajax({
+        method: 'POST',
+        url: baseURL + '/cards',
+        headers: { token: localStorage.getItem('token') },
+        data: {
+            front: $('#frontRand').val(),
+            subFront: $('#subFrontRand').val(),
+            synFront: [$('#synFrontRand').val()], //ARRAY
+            back: $('#backRand').val(),
+            subBack: $('#subBackRand').val(),
+            synBack: [$('#synBackRand').val()], //ARRAY
+        },
+        success: () => {
+            console.log('successfully added new card')
+            $('#randomCardForm')[0].reset();
+        },
+        error: (err) => {
+            console.log(err.responseText);
+        }
+    });
+}
