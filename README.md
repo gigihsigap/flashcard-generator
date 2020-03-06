@@ -1,4 +1,5 @@
-# Flashcard GeneratorFlashcard Generator is a flash card single-page app. This app aims to facilitate language learning through flash card memorization. The random card generator can create new cards that contain randomly selected its definition and translation, if available.Features:
+# Flashcard Generator
+Flashcard Generator is a flash card single-page app. This app aims to facilitate language learning through flash card memorization. The random card generator can create new cards that contain randomly selected its definition and translation, if available.Features:
 - Each account have their own card set.
 - Online English-to-Bahasa Indonesia translator.
 - Random card generator.
