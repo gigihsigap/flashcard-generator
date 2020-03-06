@@ -17,8 +17,8 @@
 </head>
 
 <body>
-
     <div class="pageContainer">
+
         <div class="landingPage" id="landingPage" style="display:none;">
 
             <h2> Welcome To Flash Card Generator!</h2>
@@ -36,8 +36,10 @@
                 <input type="password" id="passwordLogin" name="passwordLogin" value="" required><br><br>
                 <input type="submit" class="btn btn-dark" id="button-login-submit" value="Submit">
             </form>
+            <br>
             <input type="submit" class="btn btn-dark" id="button-register-loginform-submit" value="Register">
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+            <div class="g-signin2" data-onsuccess="onSignIn" style="text-align: center;"></div>
         </div>
 
         <div id="registerForm" style="display: none;">
@@ -51,7 +53,6 @@
                 <input type="password" id="password" name="password" value=""><br><br>
                 <input type="submit" class="btn btn-dark" id="button-register-submit" value="Submit">
             </form>
-
         </div>
 
         <div class="container" id="main-page" style="display:none;">
@@ -62,13 +63,9 @@
                 <button id="open-translate-button" class="btn btn-dark">Online Translator</button>
                 <button id="logout-button" class="btn btn-dark" onclick="signOut();">Log Out</button>
             </div>
-
             <div class="container flexbox-cards" id="cardList">
-
                 <!-- Card List Here -->
-
             </div>
-
         </div>
 
         <div class="container" id="addCardPage" style="display:none;">
@@ -78,7 +75,6 @@
             </div>
 
             <div class="container flexbox-cards">
-
                 <form id="addCardForm" class="text-center">
                     <input type="text" id="front" placeholder="English Word" value=""><br>
                     <input type="text" id="subFront" placeholder="Definition" value=""><br>
@@ -89,30 +85,52 @@
                     <input type="submit" class="submit" id="addCardSubmit" value="Submit">
                     <button id="backButton" class="btn btn-dark">Back</button>
                 </form>
-
             </div>
+        </div>
 
-    <div class="container flexbox-cards-each" id="cardId">
+        <div class="container" id="editCardPage" style="display: none;">
+            <h1 class="text-center mx-auto my-5">Edit Card</h1>
+            <div class="container flexbox-menu mx-auto my-5">
+                <button class="btn btn-primary">Generate Random</button>
+            </div>
+        
+            <div class="container flexbox-cards">
+        
+            <form id="editCardForm" class="text-center">
+                <input type="text" id="edit-front" placeholder="English Word" value=""><br>
+                <input type="text" id="edit-subFront" placeholder="Definition" value=""><br>
+                <input type="text" id="edit-synFront" placeholder="Synonyms" value=""><br><br>
+                <input type="text" id="edit-back" placeholder="Kata Bahasa Indonesia" value=""><br>
+                <input type="text" id="edit-subBack" placeholder="Definisi" value=""><br>
+                <input type="text" id="edit-synBack" placeholder="Sinonim" value=""><br><br>
+                <input type="submit" onclick="editCard()" class="submit" id="editCardSubmit" value="Submit">
+                <button class="btn" id="backButton">Back</button>
+            </form>
+            </div>
+        
+        </div>
 
-        <!-- Card List Here -->
-            
-    </div>
+        <div class="container flexbox-cards-each" id="cardId" style="display:none;">
+            <div id="showCard">
 
-    <div class="container" id="addCardPage">
-        <h1 class="text-center mx-auto my-5">Add New Card</h1>
-        <div class="container flexbox-menu mx-auto my-5">
-            <button class="btn btn-primary">Generate Random</button>
+                    <!-- Card List Here -->
+
+                    
+            </div>
+            <div>
+                <button id="backButton" class="btn btn-dark">Back</button>
+            </div>
         </div>
 
         <div class="container" id="translatePage" style="display:none;">
-            <form>
-                <input id="translate-input-form" class="form-control form-control-lg" type="text"
-                    placeholder="Enter text">
-                <input id="translate-result-form" class="form-control form-control-lg" type="text"
-                    placeholder="Translation" readonly>
-                <button id="translate-button" class="btn btn-dark">Translate</button>
-                <button id="backButton" class="btn btn-dark">Back</button>
-            </form>
+                    <form>
+                        <input id="translate-input-form" class="form-control form-control-lg" type="text"
+                            placeholder="Enter text">
+                        <input id="translate-result-form" class="form-control form-control-lg" type="text"
+                            placeholder="Translation" readonly>
+                        <button id="translate-button" class="btn btn-dark">Translate</button>
+                        <button id="backButton" class="btn btn-dark">Back</button>
+                    </form>
         </div>
 
         <div class="container flexbox-cards" id="randomCardPage" style="display:none;">
@@ -136,8 +154,6 @@
         </div>
 
     </div>
-
-
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="./scripts/main.js"></script>

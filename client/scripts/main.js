@@ -83,6 +83,19 @@ $('#addCardForm').on('submit', function(event) {
     refresh()
 })
 
+// $(`#editCardButton`).on("click", function(event){
+//     event.preventDefault()
+//     $("#main-page").hide()
+//     $("#editCardPage").show()
+// })
+
+$('#editCardForm').on('submit',(event) => {
+    console.log('syuvdgskjndcskjcnsdkjcsn')
+    event.preventDefault()
+    editCard()
+    refresh()
+})
+
 //=========== FUNCTION AREA ==========//
 
 function refresh() {
@@ -93,7 +106,6 @@ function refresh() {
         $("#landingPage").show()
     } else {
         console.log('Already logged in!')
-        getAllCards()
         showMainPage()
     }
 }
@@ -173,8 +185,12 @@ function showMainPage() {
     $("#loginForm").hide()
     $("#registerForm").hide()
     $("#addCardPage").hide()
+    $("#editCardPage").hide()
     $("#landingPage").hide()
     $('#translatePage').hide()
     $('#randomCardPage').hide()
+    $('#cardId').hide()
+    getAllCards()
     $('#main-page').show()
+    
 }
